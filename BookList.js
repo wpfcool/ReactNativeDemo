@@ -4,15 +4,22 @@ import {
   StyleSheet,
   Text,
   View,
-  FlatList
+  FlatList,
+  TouchableOpacity
 } from 'react-native';
 
-
+import {NativeModules}from 'react-native';
 var Util = require('./common/Util');
 var DouBan_APIS = require('./common/service');
 
+
+ // var MapView = require('./mapView');
+
 import {BookItem} from './BookItem';
 import {BookDetail} from './BookDetail';
+import MapView from './mapView';
+
+
 
 
 export class BookList extends Component{
@@ -26,6 +33,10 @@ export class BookList extends Component{
   }
 
   getRequest(){
+
+
+    var CalendarManager = NativeModules.CalendarManager;
+    CalendarManager.addEvent('Birthday Party', '4 Privet Drive, Surrey');
 
     Util.getRequest(DouBan_APIS.book_search + "?count=20&q=React",(responseData)=>{
 
@@ -70,6 +81,12 @@ pressClick=(bookId)=>{
     );
 
 }
+
+gotoMap=()=>{
+  this.props.navigator.push({
+     component:MapView
+  });
+}
   componentDidMount(){
     this.getRequest();
   }
@@ -83,19 +100,29 @@ pressClick=(bookId)=>{
 
   render(){
     return(
-        <FlatList style = {styles.container}
+
+      <View style = {{flex:1}}>
+
+<TouchableOpacity onPress= {this.gotoMap}>
+  <Text style = {{marginTop:64,height:20,backgroundColor:'red'}}> 点击进入地图</Text>
+</TouchableOpacity>
+
+        <FlatList style = {styles.container,{flex:1}}
           data = {this.state.data}
             renderItem = {this._renderItem}
             ItemSeparatorComponent ={this._separator}
                 >
           </FlatList>
+      </View>
+
+
     );
   }
 }
 const styles = StyleSheet.create({
   container: {
    flex: 1,
-   marginTop: 10
+
 
   },
   item: {
