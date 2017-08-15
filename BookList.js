@@ -12,6 +12,8 @@ var Util = require('./common/Util');
 var DouBan_APIS = require('./common/service');
 
 import {BookItem} from './BookItem';
+import {BookDetail} from './BookDetail';
+
 
 export class BookList extends Component{
 
@@ -50,8 +52,22 @@ export class BookList extends Component{
 
   }
   //
-pressClick(){
-  
+pressClick=(bookId)=>{
+
+
+    this.props.navigator.push(
+      {
+        component:BookDetail,
+        title:"详情",
+        passProps:{
+           book_id:bookId
+        }
+      }
+
+
+
+
+    );
 
 }
   componentDidMount(){
@@ -62,18 +78,16 @@ pressClick(){
    }
    _renderItem = ({item})=>{
 
-     return (<BookItem book ={item.value} onPressClick = {this.pressClick}></BookItem>)
+     return (<BookItem book ={item.value} onPressClick = {this.pressClick.bind(this,item.value.id)}></BookItem>)
    }
 
   render(){
     return(
         <FlatList style = {styles.container}
           data = {this.state.data}
-            // renderItem={({item} )=> (<Text  style={styles.item}>{item.value.title}</Text>)}
             renderItem = {this._renderItem}
             ItemSeparatorComponent ={this._separator}
                 >
-
           </FlatList>
     );
   }
