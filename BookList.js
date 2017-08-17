@@ -35,6 +35,7 @@ export class BookList extends Component{
   getRequest(){
 
 
+
     var CalendarManager = NativeModules.CalendarManager;
     CalendarManager.addEvent('Birthday Party', '4 Privet Drive, Surrey');
 

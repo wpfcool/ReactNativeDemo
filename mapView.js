@@ -22,7 +22,7 @@ export default class MapView extends Component{
   render(){
     return(
 
-       <RNTMap  {...this.props} style = {{backgroundColor:'red',flex:1}} />
+       <RNTMap  pitchEnabled = {true} zoomEnabled = {false}style = {{backgroundColor:'red',flex:1}} />
     //  <Text></Text>
 
     );

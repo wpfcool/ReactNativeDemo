@@ -30,6 +30,8 @@ export default class DouBanDemo extends Component {
   }
   render(){
 
+
+
      return(
 
        <TabBarIOS  unselectedTintColor="gray"
